@@ -2,15 +2,16 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+//interfaccia grafica del server
 
 public class ChatServer extends JFrame{
   public ChatServer(){
     super("Chat Server");
-    this.setSize(new Dimension(500,300));
-    this.setLocationRelativeTo(null);
-    this.setEnabled(true);
-    this.setBackground(Color.blue);
-
+    this.setSize(new Dimension(500,300));//grandezza della finestra
+    this.setLocationRelativeTo(null);//la posiziono al centro dello schermo
+    this.setEnabled(true);//proprieta enable
+    this.setBackground(Color.blue);//colore sfondo
+//creazione del pannello per la visualizzazione e l'inserimento dei messaggi
     PannelloChatServer pan = new PannelloChatServer();
     this.getContentPane().add(pan);
     this.SetVisible(true);
@@ -23,13 +24,14 @@ public class PannelloChatServer extends JPanel {
   public PannelloChatServer() {
     super();
     this.setBackground(new Color(50, 100, 225));
+    //pannello superiore(output)
     JPanel panLista = new Jpanel(new BorderLayout(20, 5));
     panLista.setBackground(new Color(50, 100, 225));
     lista = new List(); // Initialize lista
     lista.setBackground(Color. lightGray);
     lista.setSize(100, 50);
     lista.setVisible(true);
-
+//scritte laterali
     JLabel chat1 = new JLabel("Chat", JLabel.CENTER);
     chat1.setForeground(new Color(200, 100, 100));
     JLabel chat2 = new JLabel("Chat", JLabel.CENTER);
@@ -38,7 +40,7 @@ public class PannelloChatServer extends JPanel {
     panLista.add(chat1, BorderLayout.WEST);
     panLista.add(lista, BorderLayout.CENTER);
     panLista.add(chat2, BorderLayout.EAST);
-
+//pannello inserimento nuovo messaggio
     JPanel nuovoMES = new JPanel(new BorderLayout(20, 5));
     nuovoMES.setBackground(new Color(50, 100, 225));
 
