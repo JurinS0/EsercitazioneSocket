@@ -1,11 +1,13 @@
 import java.io.*;
 import java.net.*;
 
+//questa classe rappresenta una singola connessione di un client a un server
+
 public class ThreadChatConnessioni implements Runnable {
 private ThreadGestioneServizioChat gestoreChat;
 private Socket client = null;
-private BufferedReader input = null;
-private PrintWriter output = null;
+private BufferedReader input = null;//stream input per la comunicazione con il client
+private PrintWriter output = null;//stream output per la comunicazione con il client
 Thread me;
 
 public ThreadChatConnessioni(ThreadGestioneServizioChat gestoreChat, Socket client){
@@ -23,7 +25,7 @@ public ThreadChatConnessioni(ThreadGestioneServizioChat gestoreChat, Socket clie
   me.start();
 }
 
-  public void run(){
+  public void run(){ //gestisce la recezione dei messaggi inviati dal client
     while(true){
       try{
         String mes = null;
@@ -31,7 +33,9 @@ public ThreadChatConnessioni(ThreadGestioneServizioChat gestoreChat, Socket clie
         while((mes = input.readLine()) == null){
         System.out.println("messaggio ricevuto");
         }
-      }
+        gestoreChat.spedisciMessaggio(mes);//rioeto a tutti il messaggio
+      }catch(Exception e){
+        output.println("Errore nella soedizione del messaggio a tutti");
     }
   }
 
