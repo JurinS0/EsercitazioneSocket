@@ -3,6 +3,10 @@ import java.io.*;
 import java.net.*;
 import javax.swing.*;
 
+//questa classe rappresenta l'implementazione del servizio client della chat
+//in questo caso il client ha solo il compito di connetersi con il server e rimanere in attesa 
+//dei messaggi inviati dal servere e su richiesta dell'utente deve inviare messaggi verso il server
+
 public class ThreadChatClient implements Runnable {
     private List lista;
     private Thread me;
@@ -13,7 +17,7 @@ public class ThreadChatClient implements Runnable {
     public ThreadChatClient(List lista, String ipServer, int porta) {
         this.lista = lista;
         try {
-            client = new Socket(ipServer, porta);
+            client = new Socket(ipServer, porta);//inizializzazione di un socket per la connessione al server
             this.input = new BufferedReader(new InputStreamReader(client.getInputStream()));
             this.output = new PrintWriter(client.getOutputStream(), true);
         } catch (IOException e) {
@@ -23,12 +27,12 @@ public class ThreadChatClient implements Runnable {
         me.start();
     }
 
-    public void run() {
+    public void run() { //gestisce la ricezione dei messaggi da parte del server
         try {
             while (true) {
                 String mes = input.readLine();
                 if (mes != null) {
-                    lista.add(mes);
+                    lista.add(mes); //i messaggi vengono inseriti in una lista 
                     lista.select(lista.getItemCount() - 1);
                 }
             }
@@ -37,7 +41,7 @@ public class ThreadChatClient implements Runnable {
         }
     }
 
-    public void spedisciMessaggio(String messaggio) {
+    public void spedisciMessaggio(String messaggio) { //utilizzato per spedire messaggi al server
         output.println(messaggio);
     }
 }
