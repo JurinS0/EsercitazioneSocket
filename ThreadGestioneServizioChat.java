@@ -5,16 +5,16 @@ import javax.swing.JOptionPane;
 
 //questa classe serve per gestire i server e le connessioni dei client ad essi
 
-public class ThreadGestioneServizioChat implements Runnable { //questo thread si occupa di ricevere le connessioni dei client
-    private int nMaxConnessioni;//numero max connessioni 
-    private List<ThreadChatConnessioni> lista;//lista che conterrà le connessioni che in quel momento sono attive
+class ThreadGestioneServizioChat implements Runnable {//questo thread si occupa di ricevere le connessioni dei client
+    private int nMaxConnessioni;
+    private List<String> lista;
     private Thread[] listaThreadConnessioni;
     private Thread me;
     private ServerSocket serverChat;
 
-    public ThreadGestioneServizioChat(int nMaxConnessioni, List<ThreadChatConnessioni> lista) {
-        this.nMaxConnessioni = nMaxConnessioni;
-        this.lista = lista;
+    public ThreadGestioneServizioChat(int nMaxConnessioni, List<String> lista) {
+        this.nMaxConnessioni = nMaxConnessioni;//numero max connessioni
+        this.lista = lista;//lista che conterrà le connessioni che in quel momento sono attive
         this.listaThreadConnessioni = new Thread[nMaxConnessioni];
         this.me = new Thread(this);
         this.me.start();
@@ -36,7 +36,6 @@ public class ThreadGestioneServizioChat implements Runnable { //questo thread si
                 for (int i = 0; i < nMaxConnessioni; i++) {
                     Socket tempo = serverChat.accept();
                     ThreadChatConnessioni nuovaConnessione = new ThreadChatConnessioni(this, tempo);
-                    lista.add(nuovaConnessione);
                     Thread threadConnessione = new Thread(nuovaConnessione);
                     listaThreadConnessioni[i] = threadConnessione;
                     threadConnessione.start();
@@ -48,14 +47,17 @@ public class ThreadGestioneServizioChat implements Runnable { //questo thread si
         }
     }
 
-    public void spedisciMessaggio(String mes){
-        //scrittura del messaggio
-        lista.add(mes);
-        lista.select(lista.getItemCount()-1);
-//invio del messaggio a tutti i client
-        for(int xx=0; xx<this.nrMaxCknnessioni; xx++){
-            if(listaConnessioni[xx] != null){
-                listaConnessioni[xx].spedisciMessaggioChat(mes);
-       }
-   }
+    public void spedisciMessaggio(String mes) {
+    lista.add(mes); //aggiunge il messaggio alla lista dei messaggi visualizzati sul server
+
+    //invio del messaggio a tutti
+    for (int i = 0; i < listaThreadConnessioni.length; i++) {
+        Thread thread = listaThreadConnessioni[i];
+        if (thread != null) {
+            ThreadChatConnessioni connessione = (ThreadChatConnessioni) thread;
+            connessione.spedisciMessaggio(mes);
+        }
     }
+}
+
+}
