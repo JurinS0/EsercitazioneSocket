@@ -32,7 +32,7 @@ public class ThreadChatClient implements Runnable {
                 String mes = input.readLine();
                 if (mes != null) {
                     lista.add(mes);//i messaggi vengono inseriti in una lista
-                    lista.select(lista.getItemCount() - 1);
+                  lista.select(lista.getItemCount()-1);
                 }
             }
         } catch (IOException e) {
