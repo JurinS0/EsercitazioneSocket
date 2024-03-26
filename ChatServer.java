@@ -65,7 +65,7 @@ public class PannelloChatServer extends JPanel implements ActionListener {
     }
 
     public void connetti() {
-        gestioneServizio = new ThreadGestioneServizioChat(10, lista); // Crea un nuovo gestore del servizio di chat
+        gestioneServizio = new ThreadGestioneServizioChat(10, lista);
     }
 
     public void actionPerformed(ActionEvent e) {
