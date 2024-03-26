@@ -17,7 +17,7 @@ public class ChatServer extends JFrame {
     }
 }
 
-public class PannelloChatServer extends JPanel implements ActionListener {
+class PannelloChatServer extends JPanel implements ActionListener {
     private List lista;
     private JTextField textNuovo;
     private ThreadGestioneServizioChat gestioneServizio;
