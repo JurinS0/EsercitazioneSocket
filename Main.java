@@ -6,6 +6,9 @@ public class MainServer {
             public void run() {
                 ChatServer server = new ChatServer();
                 server.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Chiudi l'applicazione quando la finestra viene chiusa
+
+                 ChatClient client =new ChatClient();
+              client.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         });
     }
